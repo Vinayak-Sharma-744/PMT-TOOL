@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "removeComments": true,
+    "strict": true,
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2019",
+    "lib": ["ES2019", "DOM"], 
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "sourceMap": false,
+    "outDir": "dist", 
+    "rootDir": "./",
+    "baseUrl": ".",
+    "types": ["node"],
+    "paths": {
+      "*": [
+        "node_modules/*"
+      ]
+    }
+  },
+  "include": [
+    "./index.ts",
+    "src/**/*",
+    ".env"
+  ],
+  "exclude": [
+    "./src/test/"
+  ],
+  // "files":["./src/lib/@types/index.d.ts"]
+}
