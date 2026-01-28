@@ -1,22 +1,38 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document, Types } from "mongoose";
 
 export interface IProject extends Document {
-    id: string;
-    name: string;
-    description: string;
-    createdBy: string;
-    members: Array<{ userId: string; roleInProject: string }>;
-    status: string;
+  _id: Types.ObjectId;
+  name: string;
+  description: string;
+  createdBy: Types.ObjectId;
+  members: Array<{ userId: Types.ObjectId; roleInProject: string }>;
+  status: Types.ObjectId;
 }
 
-const ProjectSchema: Schema = new Schema({
+const ProjectSchema: Schema = new Schema(
+  {
     name: { type: String, required: true },
     description: { type: String, required: true },
-    createdBy: { type: String, required: true },
-    members: [{ userId: { type: String, required: true }, roleInProject: { type: String, required: true } }],
-    status: { type: String, required: true },
-}, { timestamps: true });
+    createdBy: {
+      type: Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
+    members: [
+      {
+        userId: { type: Types.ObjectId, required: true, ref: "User" },
+        roleInProject: {
+          type: String,
+          required: true,
+          enum: ["ADMIN", "MEMBER"],
+        },
+      },
+    ],
+    status: { type: Types.ObjectId, required: true, ref: "SystemConfig" },
+  },
+  { timestamps: true },
+);
 
-const Project = mongoose.model<IProject>('Project', ProjectSchema);
+const Project = mongoose.model<IProject>("Project", ProjectSchema);
 
 export default Project;

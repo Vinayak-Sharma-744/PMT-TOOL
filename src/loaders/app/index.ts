@@ -1,9 +1,9 @@
-import { logMessage } from './../../services/common/index';
 import cors from 'cors';
 import express, { Application, Request, Response, Router } from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import { createServer } from 'http';
+import { logger } from '../../utils/logger';
 
 const PORT: number = Number(process.env.PORT) || 3000;
 const HOST: string = process.env.HOST || '0.0.0.0';
@@ -47,7 +47,7 @@ const appLoader = (app: Application, router: Router): Promise<boolean> =>
     });
 
     server.listen(PORT, HOST, () => {
-      logMessage('*** App is Running😀 ***');
+      logger.info('*** App is Running😀 ***');
       resolve(true);
     });
   });

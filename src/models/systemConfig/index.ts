@@ -1,20 +1,37 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document } from "mongoose";
 
 interface ISystemConfig extends Document {
-    taskStatuses: string[];
-    taskPriorities: string[];
-    // Future properties can be added here
-    projectStatuses?: string[];
-    labels?: string[];
+  name: string;
+  status: "ACTIVE" | "INACTIVE" | "DELETED";
 }
 
-const SystemConfigSchema: Schema = new Schema({
-    taskStatuses: { type: [String], required: true },
-    taskPriorities: { type: [String], required: true },
-    projectStatuses: { type: [String] },
-    labels: { type: [String] }
-});
+const SystemConfigSchema: Schema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+      enum: ["ACTIVE", "INACTIVE", "DELETED"],
+      default: "ACTIVE",
+    },
+  },
+  { timestamps: true },
+);
 
-const SystemConfig = mongoose.model<ISystemConfig>('SystemConfig', SystemConfigSchema);
+SystemConfigSchema.index(
+  { name: 1 },
+  {
+    unique: true,
+    partialFilterExpression: { status: { $ne: "DELETED" } },
+  },
+);
+
+const SystemConfig = mongoose.model<ISystemConfig>(
+  "SystemConfig",
+  SystemConfigSchema,
+);
 
 export default SystemConfig;
