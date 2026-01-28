@@ -1,39 +1,31 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document, Types } from "mongoose";
 
 export interface IUser extends Document {
-    id: string;
-    name: string;
-    email: string;
-    password: string;
-    roleId: string;
-    isActive: boolean;
+  _id: Types.ObjectId;
+  name: string;
+  email: string;
+  password: string;
+  roleId: Types.ObjectId;
+  isActive: boolean;
+	status: "ACTIVE" | "INACTIVE" | "DELETED";
 }
 
-const UserSchema: Schema = new Schema({
+const UserSchema: Schema = new Schema(
+  {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    roleId: { type: String, required: true },
-    isActive: { type: Boolean, default: true }
-});
+    roleId: { type: Types.ObjectId, required: true, ref: "Role" },
+    isActive: { type: Boolean, default: true },
+    status: {
+      type: String,
+      enum: ["ACTIVE", "INACTIVE", "DELETED"],
+      default: "ACTIVE",
+    },
+  },
+  { timestamps: true },
+);
 
-const UserModel = mongoose.model<IUser>('User', UserSchema);
-
-export const createUser = async (userData: IUser) => {
-    const user = new UserModel(userData);
-    return await user.save();
-};
-
-export const getUserById = async (id: string) => {
-    return await UserModel.findById(id);
-};
-
-export const updateUser = async (id: string, updateData: Partial<IUser>) => {
-    return await UserModel.findByIdAndUpdate(id, updateData, { new: true });
-};
-
-export const deleteUser = async (id: string) => {
-    return await UserModel.findByIdAndDelete(id);
-};
+const UserModel = mongoose.model<IUser>("User", UserSchema);
 
 export default UserModel;

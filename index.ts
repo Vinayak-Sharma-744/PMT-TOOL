@@ -3,7 +3,6 @@ import express, { Express } from 'express';
 import path from 'path';
 import { appLoader, databaseLoader } from './src/loaders';
 import router from './src/route';
-import job from './src/config/cron';
 
 // Set global root path
 declare global {
@@ -34,9 +33,6 @@ const app: Express = express();
 databaseLoader()
   .then(() => {
     appLoader(app, router);
-
-    // Start the cron job
-    job.start();
   })
   .catch((error) => {
     throw new Error(error);
