@@ -1,4 +1,5 @@
-import 'dotenv/config';
+import dotenv from 'dotenv';
+dotenv.config();
 import express, { Express } from 'express';
 import path from 'path';
 import { appLoader, databaseLoader } from './src/loaders';
