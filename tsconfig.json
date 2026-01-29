@@ -7,8 +7,8 @@
     "target": "ES2021",
     "lib": ["ES2021"],
 
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "CommonJS",
+    // "moduleResolution": "Node",
 
     "esModuleInterop": true,
     "resolveJsonModule": true,
@@ -19,9 +19,6 @@
     "outDir": "dist",
     "rootDir": ".",
     "sourceMap": false
-  },
-  "ts-node": {
-    "esm": true
   },
   "include": ["index.ts", "src/**/*"],
   "exclude": ["src/test"]
