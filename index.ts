@@ -6,24 +6,21 @@ import router from './src/route';
 
 // Set global root path
 declare global {
-  // eslint-disable-next-line no-var
   var root_path: string;
 }
 global.root_path = path.resolve(__dirname);
 
 // Handle uncaught exceptions
 process.on('uncaughtException', (err: Error) => {
-  // eslint-disable-next-line no-console
   console.error(' UNCAUGHT EXCEPTION ');
-  // eslint-disable-next-line no-console
+
   console.error(`[Inside "uncaughtException" event] ${err.stack || err.message}`);
 });
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (reason, promise) => {
-  // eslint-disable-next-line no-console
   console.error(' UNHANDLED REJECTION ');
-  // eslint-disable-next-line no-console
+
   console.error('Unhandled Rejection at:', promise, 'REASON:', reason);
 });
 

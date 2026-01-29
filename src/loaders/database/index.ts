@@ -7,7 +7,7 @@ import { logger } from '../../utils/logger/index';
  */
 const databaseLoader = (): Promise<mongoose.Connection> => {
   console.log(`Connecting to database at ${process.env.DB_STRING}`);
-  
+
   return new Promise((resolve, reject) => {
     mongoose.set('debug', false);
 

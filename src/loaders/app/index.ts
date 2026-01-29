@@ -23,18 +23,18 @@ const appLoader = (app: Application, router: Router): Promise<boolean> =>
     app.use(
       cors({
         origin: true,
-      })
+      }),
     );
     app.use(
       express.json({
         limit: '10mb',
-      })
+      }),
     );
 
     app.use(
       express.urlencoded({
         extended: true,
-      })
+      }),
     );
     app.use(morgan('dev'));
     app.use('/aggregation', router);
