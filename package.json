@@ -9,7 +9,7 @@
   "scripts": {
     "watch": "nodemon index.ts --config ./nodemon.json",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "prettier --write . && eslint --fix --ext .ts .",
+    "lint": "prettier --write \"src/**/*.{ts,js,json,md}\" \"*.{ts,js,json,md}\" && eslint --fix --ext .ts src",
     "lint-fix": "eslint 'src/**/*.{ts,tsx}' --fix",
     "build": "tsc",
     "format": "prettier --write . && prettier --check .",
